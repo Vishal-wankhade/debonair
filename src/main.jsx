@@ -6,8 +6,11 @@ import { store } from "./redux/store";
 import App from "./App";
 import "./index.css";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+);
