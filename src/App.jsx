@@ -12,7 +12,7 @@ function App() {
       <AppRoutes />
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
