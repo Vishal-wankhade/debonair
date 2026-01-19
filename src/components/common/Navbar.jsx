@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
+import { FiShoppingBag, FiMenu, FiX , FiSearch} from "react-icons/fi";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
@@ -18,10 +18,32 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="font-brand text-5xl">
-          DEBONAIR
+        <Link to="/" className="font-brand text-3xl">
+          Debonair
         </Link>
+        <div className="relative w-full max-w-sm">
+           <FiSearch
+    size={18}
+    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+  />
 
+  <input
+    type="text"
+    placeholder="Search products..."
+    className="
+      w-full pl-10 pr-4 py-2
+      rounded-full
+      border border-gray-300
+      text-sm
+      placeholder-gray-400
+      transition-all duration-300
+      focus:outline-none
+      focus:border-gray-400
+      focus:ring-2 focus:ring-gray/10
+      hover:border-gray-400
+    "
+  />
+        </div>
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
           <NavLink to="/" className={navLinkClass}>

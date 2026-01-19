@@ -2,9 +2,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
-      fontFamily: {
+     fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui"],
         brand: ["Platypi", "serif"],
+        subheading: ['Inter', 'sans-serif'],
       },
     },
   },

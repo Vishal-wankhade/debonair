@@ -1,9 +1,12 @@
-
+import React from "react";
+import Hero from "../components/common/Hero";
+import OfferCarousel from "../components/other/OfferCarousel";
 
 const Home = () => {
   return (
     <>
-  <h1>Home Page</h1>
+  <Hero />
+  <OfferCarousel />
     </>
   );
 };
