@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "../components/common/Hero";
+import Categories from "../components/common/Categories";
 import OfferCarousel from "../components/other/OfferCarousel";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <>
   <Hero />
   <OfferCarousel />
+  <Categories />
     </>
   );
 };

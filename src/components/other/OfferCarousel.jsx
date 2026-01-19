@@ -1,60 +1,71 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import heroImg from "../../assets/hero.jpg";
+import { useRef } from "react";
+import WJ from "../../assets/WJ.jpg";
 
 const offers = [
-  { id: 1, title: "Summer Sale", off: "40% OFF", img: heroImg },
-  { id: 2, title: "New Arrivals", off: "25% OFF", img: heroImg },
-  { id: 3, title: "Limited Edition", off: "50% OFF", img: heroImg },
-  { id: 4, title: "Best Sellers", off: "30% OFF", img: heroImg },
+  { id: 1, title: "Winter Sale", price: "Up to 50% Off", img: WJ},
+  { id: 2, title: "New Arrivals", price: "Premium Wear", img: WJ },
+  { id: 3, title: "Limited Offer", price: "Flat 30% Off", img: WJ },
+  { id: 4, title: "Trending", price: "Best Sellers", img: WJ },
 ];
 
+
+
 export default function OfferCarousel() {
-  const { scrollYProgress } = useScroll();
-  const x = useTransform(scrollYProgress, [0.2, 0.6], ["0%", "-40%"]);
+  const ref = useRef(null);
+
+  // Mouse wheel → horizontal scroll
+  const handleWheel = (e) => {
+    if (ref.current) {
+      e.preventDefault();
+      ref.current.scrollLeft += e.deltaY;
+    }
+  };
 
   return (
-    <section className="relative w-full overflow-hidden py-12 bg-gray-50">
-      {/* Heading */}
-      <div className="max-w-7xl mx-auto px-6 mb-6">
-        <h2 className="font-heading text-3xl mb-2">Exclusive Offers</h2>
-        <p className="text-gray-500 font-subheading">
-          Hand-picked deals just for you
-        </p>
-      </div>
+    <section className="w-full py-10">
+      <h2 className="text-2xl font-semibold mb-6 px-6">
+        Hot Offers 🔥
+      </h2>
 
-      {/* Scroll Linked Carousel */}
-      <motion.div
-        style={{ x }}
-        className="flex gap-6 px-6 will-change-transform"
+      <div
+        ref={ref}
+        onWheel={handleWheel}
+        className="
+          flex gap-6 px-6
+          overflow-x-auto
+          scroll-smooth
+          snap-x snap-mandatory
+          p-5
+          scrollbar-hide
+        "
       >
         {offers.map((item) => (
-          <motion.div
+          <div
             key={item.id}
-            whileHover={{ scale: 1.05 }}
-            className="min-w-[280px] md:min-w-[360px] bg-white rounded-2xl shadow-lg overflow-hidden"
+            className="
+              min-w-[280px]
+              h-[360px]
+              snap-start
+              rounded-2xl
+              bg-white
+              shadow-lg
+              hover:scale-105
+              transition-transform duration-300
+            "
           >
-            <div className="relative h-48">
-              <img
-                src={item.img}
-                alt={item.title}
-                className="w-full h-full object-cover"
-              />
-              <span className="absolute top-3 left-3 bg-black text-white text-sm px-3 py-1 rounded-full">
-                {item.off}
-              </span>
-            </div>
+            <img
+              src={item.img}
+              alt={item.title}
+              className="h-2/3 w-full object-cover rounded-t-2xl"
+            />
 
-            <div className="p-5">
-              <h3 className="font-subheading text-xl mb-2">
-                {item.title}
-              </h3>
-              <button className="mt-2 text-sm font-medium underline hover:text-indigo-600">
-                Shop Now →
-              </button>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">{item.title}</h3>
+              <p className="text-gray-500">{item.price}</p>
             </div>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }
