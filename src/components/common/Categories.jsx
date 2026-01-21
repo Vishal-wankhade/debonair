@@ -1,26 +1,21 @@
 import { motion, AnimatePresence, color } from "framer-motion";
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import shirtsBG from "../../assets/shirtsBG.jpg";
 import { linearGradient } from "framer-motion/client";
 // import jeansBG from "../../assets/jeansBG.jpg";
 // import shoesBG from "../../assets/shoesBG.jpg"; 
+import { products } from "../../assets/products.js";
 
 export default function Categories(){
-  const products = {
-  shirts: Array.from({ length: 9 }, (_, i) => ({
-    id: i,
-    name: `Shirt ${i + 1}`,
-  })),
-  jeans: Array.from({ length: 9 }, (_, i) => ({
-    id: i,
-    name: `Jeans ${i + 1}`,
-  })),
-  shoes: Array.from({ length: 9 }, (_, i) => ({
-    id: i,
-    name: `Shoes ${i + 1}`,
-  })),
-}
+    const navigate = useNavigate();
+
+    function openShopList(item) {
+      // Navigate to /shop and pass the selected category as state
+      navigate("/Shop", { state: { category: selectedTab.key,item } });
+    }
+ 
 
 const tabs = [
   { label: "Shirts", key: "shirts" },
@@ -87,13 +82,16 @@ const grid = {
 }
 
 const card = {
-  height: 80,
+  height: 400,
   background: "#f5f5f5",
   borderRadius: 8,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   fontWeight: 500,
+  backgroundPosition: "center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
 }
 
 
@@ -133,12 +131,13 @@ const card = {
             transition={{ duration: 0.25 }}
             style={grid}
           >
-            {products[selectedTab.key].map((item) => (
+            {products[selectedTab.key].slice(0, 4).map((item) => (
               <motion.div
                 key={item.id}
                 layout
                 whileHover={{ scale: 1.05 }}
-                style={card}
+                style={{ ...card, backgroundImage: `url(${item.image})` }}
+                onClick={() => openShopList(item)}
               >
                 {item.name}
               </motion.div>
